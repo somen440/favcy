@@ -1,6 +1,6 @@
 import { Handler, Context, Callback, APIGatewayEvent } from "aws-lambda";
 
-interface HelloResponse {
+export interface HelloResponse {
   statusCode: number;
   body: string;
 }
