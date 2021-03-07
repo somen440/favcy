@@ -1,0 +1,13 @@
+overwrite: true
+schema: schema/schema.gql
+documents: schema/query.graphql
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - typescript-resolvers
+    config:
+      withComponent: true
+      withHooks: true

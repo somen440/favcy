@@ -1,25 +1,7 @@
 import * as React from 'react';
-import "./App.css"
 
-import { ApolloProvider, ApolloClient, InMemoryCache, gql, useQuery } from '@apollo/client';
-
-const GET_GREETING = gql`
-  query {
-    hello
-  }
-`;
-function LambdaDemo() {
-  const { loading, error, data } = useQuery(GET_GREETING);
-
-  if (loading) return (<div>loading</div>);
-  if (error)   return (<div>{error}</div>);
-
-  return (
-    <div>
-      A greeting from the server: {data.hello}
-    </div>
-  )
-}
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { Posts } from './components/Posts';
 
 const client = new ApolloClient({
   uri: "/.netlify/functions/graphql",
@@ -28,7 +10,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <LambdaDemo />
+      <Posts />
     </ApolloProvider>
   )
 }

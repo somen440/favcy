@@ -1,0 +1,5 @@
+query FetchPosts {
+  posts {
+    title
+  }
+}

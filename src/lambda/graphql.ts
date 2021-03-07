@@ -1,19 +1,6 @@
-// src/lambda/graphql.js
-import { ApolloServer, gql } from "apollo-server-lambda";
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => {
-      return "Hello, world!";
-    },
-  },
-};
+import { ApolloServer } from "apollo-server-lambda";
+import { resolvers } from "./resolver";
+import { typeDefs } from "./schema";
 
 const server = new ApolloServer({
   typeDefs,
