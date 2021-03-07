@@ -1,7 +1,7 @@
 import { QueryResolvers, Post, Author } from "../generated/graphql";
 
 function dummyAuthor(): Author {
-  return {} as Author
+  return {} as Author;
 }
 
 function dummy(): Post[] {
