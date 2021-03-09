@@ -1,19 +1,29 @@
 import { gql } from "apollo-server-lambda";
 
 export const typeDefs = gql`
-  type Author {
-    id: Int!
+  type AuthPayload {
+    user: User!
+    token: String!
+  }
+
+  type User {
+    id: ID!
     name: String!
-    posts(findTitle: String): [Post]
+    posts(findTitle: String): [Post]!
   }
 
   type Post {
-    id: Int!
+    id: ID!
     title: String!
-    author: Author!
+    author: User!
   }
 
   type Query {
+    me: User!
     posts: [Post!]!
+  }
+
+  type Mutation {
+    login(name: String!): AuthPayload!
   }
 `;

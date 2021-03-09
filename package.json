@@ -8,13 +8,15 @@
     "apollo-server-lambda": "^2.21.0",
     "axios": "^0.19.0",
     "encoding": "^0.1.13",
+    "faunadb": "^4.1.1",
     "graphql": "^15.5.0",
     "netlify-lambda": "^1.4.5",
     "npm-run-all": "^4.1.5",
     "react": "^16.8.6",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.8.6",
-    "react-scripts": "^3.0.1"
+    "react-scripts": "^3.0.1",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,6 +25,7 @@
     "build:app": "react-scripts build",
     "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test",
+    "test:unit": "jest",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint --fix src/**/*.ts",
@@ -45,16 +48,38 @@
     "@graphql-codegen/typescript-react-apollo": "2.2.1",
     "@graphql-codegen/typescript-resolvers": "^1.18.2",
     "@types/aws-lambda": "^8.10.72",
+    "@types/jest": "^26.0.20",
     "@types/mocha": "^8.2.1",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "idempotent-babel-polyfill": "^7.4.4",
+    "jest": "24.9.0",
     "prettier": "^2.2.1",
+    "ts-jest": "^26.5.3",
     "typescript": "^4.2.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/tests/**/*.test.ts"
+    ]
   }
 }
