@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Posts } from '../components/Posts';
 import { LoginForm } from "../components/LoginForm";

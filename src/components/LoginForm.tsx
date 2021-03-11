@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { isLoggedInVar } from '../cache';
 
-import { AuthPayload, MutationLoginArgs, LoginDocument, LoginMutation } from "../generated/graphql";
+import { MutationLoginArgs, LoginDocument, LoginMutation } from "../generated/graphql";
 import { ErrorComponent } from './Error';
 import { Loading } from './Loading';
 
