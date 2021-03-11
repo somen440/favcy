@@ -1,5 +1,18 @@
 query FetchPosts {
   posts {
     title
+    link
+    author {
+      name
+    }
+  }
+}
+
+mutation Login($name: String!) {
+  login(name: $name) {
+    user {
+      name
+    }
+    token
   }
 }

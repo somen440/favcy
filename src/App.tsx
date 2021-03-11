@@ -1,16 +1,21 @@
 import * as React from 'react';
 
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import { Posts } from './components/Posts';
+import { ApolloProvider, ApolloClient } from '@apollo/client';
+import { HomePage } from "./pages/Home";
+import { cache } from "./cache"
 
 const client = new ApolloClient({
+  cache,
   uri: "/.netlify/functions/graphql",
-  cache: new InMemoryCache(),
+  headers: {
+    authorization: localStorage.getItem('token') || "",
+  },
 });
+
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Posts />
+      <HomePage />
     </ApolloProvider>
   )
 }

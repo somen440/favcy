@@ -26,7 +26,7 @@ export function Posts() {
         : (
         <div>
           {data.posts.map(p => (
-            <p>{p.title}</p>
+            <p key={p.title}><a href={p.link} target="_blank">{p.title}</a></p>
           ))}
           <button
             onClick={async () => {

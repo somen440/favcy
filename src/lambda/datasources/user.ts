@@ -31,9 +31,14 @@ export const userRepositoryFaunadb: UserRepository = {
     const data = await client.query(
       q.Get(q.Match(q.Index(`user_search_by_name`), name)),
     )
-      .then(({ data }: any): User | undefined => data)
-      .catch((error) => { throw new ApolloError(error) })
-    console.log("findOrUndefinedByName", data)
+      .then(({ data }: any): User => data)
+      .catch((error) => {
+        if (error instanceof faunadb.errors.NotFound) {
+          // data なしをエラーにしない
+          return undefined
+        }
+        throw new ApolloError(error)
+      })
     return data
   },
   async create(name: string): Promise<User> {
