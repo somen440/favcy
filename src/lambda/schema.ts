@@ -15,7 +15,13 @@ export const typeDefs = gql`
   type Post {
     id: ID!
     title: String!
+    link: String!
     author: User!
+  }
+
+  input AddPostInput {
+    title: String!
+    link: String!
   }
 
   type Query {
@@ -25,5 +31,7 @@ export const typeDefs = gql`
 
   type Mutation {
     login(name: String!): AuthPayload!
+
+    addPost(input: AddPostInput!): Post!
   }
 `;

@@ -1,12 +1,11 @@
 import { User } from "../../generated/graphql";
 import { v4 as uuidv4 } from 'uuid';
-import { DataSource, DataSourceConfig } from 'apollo-datasource';
-import { Context } from "../graphql";
-import { ApolloError, AuthenticationError } from "apollo-server-errors";
+import { DataSource } from 'apollo-datasource';
+import { ApolloError } from "apollo-server-errors";
 import * as faunadb from "faunadb";
 
-interface UserRepository {
-  findOrUndefined(id: string): Promise<User | undefined>
+export interface UserRepository {
+  find(id: string): Promise<User>
   findOrUndefinedByName(name: string): Promise<User | undefined>
   create(name: string): Promise<User>
 }
@@ -20,7 +19,7 @@ const client = new faunadb.Client({
   secret,
 });
 export const userRepositoryFaunadb: UserRepository = {
-  async findOrUndefined(id: string): Promise<User | undefined> {
+  async find(id: string): Promise<User> {
     const data = await client.query(
       q.Get(q.Match(q.Index(`user_search_by_id`), id)),
     )
@@ -29,7 +28,13 @@ export const userRepositoryFaunadb: UserRepository = {
     return data as User
   },
   async findOrUndefinedByName(name: string): Promise<User | undefined> {
-    return undefined
+    const data = await client.query(
+      q.Get(q.Match(q.Index(`user_search_by_name`), name)),
+    )
+      .then(({ data }: any): User | undefined => data)
+      .catch((error) => { throw new ApolloError(error) })
+    console.log("findOrUndefinedByName", data)
+    return data
   },
   async create(name: string): Promise<User> {
     const user: User = {
@@ -45,32 +50,19 @@ export const userRepositoryFaunadb: UserRepository = {
 }
 
 export class UserAPI extends DataSource {
-  context: Context;
   repo: UserRepository;
 
   constructor({ repo }: { repo: UserRepository }) {
     super();
     this.repo = repo
-    this.context = {} as Context
   }
 
-  initialize(config: DataSourceConfig<Context>) {
-    this.context = config.context
-  }
-
-  async findOrUndefined(id: string): Promise<User | undefined> {
-    return this.repo.findOrUndefined(id)
+  async find(id: string): Promise<User> {
+    return this.repo.find(id)
   }
 
   async findOrUndefinedByName(name: string): Promise<User | undefined> {
     return this.repo.findOrUndefinedByName(name)
-  }
-
-  async findMe(): Promise<User> {
-    if (!this.context.user) {
-      throw new AuthenticationError('not found user')
-    }
-    return this.context.user
   }
 
   async create(name: string): Promise<User> {

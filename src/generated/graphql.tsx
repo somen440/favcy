@@ -40,7 +40,13 @@ export type Post = {
   __typename?: 'Post';
   id: Scalars['ID'];
   title: Scalars['String'];
+  link: Scalars['String'];
   author: User;
+};
+
+export type AddPostInput = {
+  title: Scalars['String'];
+  link: Scalars['String'];
 };
 
 export type Query = {
@@ -52,11 +58,17 @@ export type Query = {
 export type Mutation = {
   __typename?: 'Mutation';
   login: AuthPayload;
+  addPost: Post;
 };
 
 
 export type MutationLoginArgs = {
   name: Scalars['String'];
+};
+
+
+export type MutationAddPostArgs = {
+  input: AddPostInput;
 };
 
 export type FetchPostsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -192,6 +204,7 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Post: ResolverTypeWrapper<Post>;
+  AddPostInput: AddPostInput;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -204,6 +217,7 @@ export type ResolversParentTypes = {
   User: User;
   ID: Scalars['ID'];
   Post: Post;
+  AddPostInput: AddPostInput;
   Query: {};
   Mutation: {};
   Boolean: Scalars['Boolean'];
@@ -225,6 +239,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  link?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -236,6 +251,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   login?: Resolver<ResolversTypes['AuthPayload'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'name'>>;
+  addPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationAddPostArgs, 'input'>>;
 };
 
 export type Resolvers<ContextType = any> = {
