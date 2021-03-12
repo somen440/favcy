@@ -25,15 +25,6 @@ export function Posts() {
         ? <Loading />
         : (
         <div>
-          {data.posts.map(p => (
-            <p key={p.title}>
-              <a
-                href={p.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >{p.title}</a>
-            </p>
-          ))}
           <button
             onClick={async () => {
               setIsLoadingMore(true);
@@ -47,6 +38,14 @@ export function Posts() {
           >
             fetch
           </button>
+          {data.posts.map(p => (
+              <a
+                key={p.title}
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              > / {p.title}</a>
+          ))}
         </div>)
       }
     </div>

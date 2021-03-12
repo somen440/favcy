@@ -8,7 +8,7 @@ const client = new ApolloClient({
   cache,
   uri: "/.netlify/functions/graphql",
   headers: {
-    authorization: localStorage.getItem('token') || "",
+    authorization: `bearer ${localStorage.getItem('token')}` || "",
   },
 });
 

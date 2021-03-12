@@ -3,6 +3,8 @@ import React from 'react';
 
 import { Posts } from '../components/Posts';
 import { LoginForm } from "../components/LoginForm";
+import { Me } from "../components/Me";
+import { PostForm } from "../components/PostForm";
 
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
@@ -15,10 +17,13 @@ export function HomePage() {
   return (
     <div>
       {data.isLoggedIn ? (
-        <div>loggedin</div>
+        <Me />
       ) : (
         <LoginForm />
       )}
+      {data.isLoggedIn ? (
+        <PostForm />
+      ) : (<div></div>)}
       <Posts />
     </div>
   )

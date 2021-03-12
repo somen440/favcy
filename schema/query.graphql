@@ -8,6 +8,12 @@ query FetchPosts {
   }
 }
 
+query Me {
+  me {
+    name
+  }
+}
+
 mutation Login($name: String!) {
   login(name: $name) {
     user {

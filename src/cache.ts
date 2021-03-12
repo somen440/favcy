@@ -8,6 +8,11 @@ export const cache: InMemoryCache = new InMemoryCache({
           read() {
             return isLoggedInVar();
           }
+        },
+        loggedInName: {
+          read() {
+            return loggedInNameVar();
+          }
         }
       }
     }
@@ -15,3 +20,4 @@ export const cache: InMemoryCache = new InMemoryCache({
 });
 
 export const isLoggedInVar = makeVar<boolean>(!!localStorage.getItem('token'))
+export const loggedInNameVar = makeVar<String>(localStorage.getItem("name") || '')
