@@ -32,7 +32,7 @@ const context: ContextFunction = async (req): Promise<Context> => {
   }
 
   const id = fromBase64(auth.split(" ")[1]);
-  const user = await repo.find(id)
+  const user = await repo.find(id);
   console.log(`id=${id} user=${user.name}`);
   return {
     user,

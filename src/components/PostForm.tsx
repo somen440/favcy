@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-interface PostFormValues {
-  title: string
-  link: string
-}
+// interface PostFormValues {
+//   title: string
+//   link: string
+// }
 
 export function PostForm() {
   return (
