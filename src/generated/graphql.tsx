@@ -114,6 +114,23 @@ export type LoginMutation = (
   ) }
 );
 
+export type AddPostMutationVariables = Exact<{
+  input: AddPostInput;
+}>;
+
+
+export type AddPostMutation = (
+  { __typename?: 'Mutation' }
+  & { addPost: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'link'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'name'>
+    ) }
+  ) }
+);
+
 
 export const FetchPostsDocument = gql`
     query FetchPosts {
@@ -236,6 +253,49 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const AddPostDocument = gql`
+    mutation AddPost($input: AddPostInput!) {
+  addPost(input: $input) {
+    id
+    title
+    link
+    author {
+      name
+    }
+  }
+}
+    `;
+export type AddPostMutationFn = Apollo.MutationFunction<AddPostMutation, AddPostMutationVariables>;
+export type AddPostComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddPostMutation, AddPostMutationVariables>, 'mutation'>;
+
+    export const AddPostComponent = (props: AddPostComponentProps) => (
+      <ApolloReactComponents.Mutation<AddPostMutation, AddPostMutationVariables> mutation={AddPostDocument} {...props} />
+    );
+    
+
+/**
+ * __useAddPostMutation__
+ *
+ * To run a mutation, you first call `useAddPostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPostMutation, { data, loading, error }] = useAddPostMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddPostMutation(baseOptions?: Apollo.MutationHookOptions<AddPostMutation, AddPostMutationVariables>) {
+        return Apollo.useMutation<AddPostMutation, AddPostMutationVariables>(AddPostDocument, baseOptions);
+      }
+export type AddPostMutationHookResult = ReturnType<typeof useAddPostMutation>;
+export type AddPostMutationResult = Apollo.MutationResult<AddPostMutation>;
+export type AddPostMutationOptions = Apollo.BaseMutationOptions<AddPostMutation, AddPostMutationVariables>;
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;

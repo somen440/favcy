@@ -22,3 +22,14 @@ mutation Login($name: String!) {
     token
   }
 }
+
+mutation AddPost($input: AddPostInput!) {
+  addPost(input: $input) {
+    id
+    title
+    link
+    author {
+      name
+    }
+  }
+}
