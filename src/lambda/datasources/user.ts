@@ -20,6 +20,8 @@ const client = new faunadb.Client({
 });
 export const userRepositoryFaunadb: UserRepository = {
   async find(id: string): Promise<User> {
+    console.log(`find start id=${id}`)
+
     const data = await client.query(
       q.Get(q.Match(q.Index(`user_search_by_id`), id)),
     )
@@ -39,6 +41,7 @@ export const userRepositoryFaunadb: UserRepository = {
         }
         throw new ApolloError(error)
       })
+    console.log("findOrUndefinedByName", data)
     return data
   },
   async create(name: string): Promise<User> {

@@ -17,10 +17,7 @@ interface ResolversContext {
 
 const query: QueryResolvers = {
   me: (_, __, { user }: { user: User | undefined }) => {
-    if (!user) {
-      throw new AuthenticationError("not set user");
-    }
-    return user;
+    return user || null;
   },
   posts: (_, __, { dataSources }: ResolversContext) => {
     return dataSources.postAPI.findAll();

@@ -24,6 +24,7 @@ export interface Context {
 const context: ContextFunction = async (req): Promise<Context> => {
   const auth: string =
     (req.event.headers && req.event.headers.authorization) || "";
+  console.log(auth);
   if (auth === "") {
     return { user: undefined };
   }

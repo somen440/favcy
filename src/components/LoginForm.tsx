@@ -17,7 +17,7 @@ export function LoginForm() {
     {
       onCompleted({ login: { user, token } }) {
         localStorage.setItem('token', token)
-        localStorage.setItem('userName', user.name)
+        localStorage.setItem('name', user.name)
         isLoggedInVar(true)
       }
     }

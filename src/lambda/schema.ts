@@ -25,7 +25,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    me: User!
+    me: User
     posts: [Post!]!
   }
 
