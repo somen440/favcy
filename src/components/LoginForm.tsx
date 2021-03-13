@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { isLoggedInVar } from "../cache";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import DoneIcon from "@material-ui/icons/Done";
+import ReactLoading from "react-loading";
 
 import {
   MutationLoginArgs,
@@ -11,7 +12,6 @@ import {
   LoginMutation,
 } from "../generated/graphql";
 import { ErrorComponent } from "./Error";
-import { Loading } from "./Loading";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -41,7 +41,7 @@ export function LoginForm(): JSX.Element {
     },
   });
 
-  if (loading) return <Loading />;
+  if (loading) return <ReactLoading color="#E9A326" />;
   if (error) return <ErrorComponent error={error} />;
 
   const onChange = (

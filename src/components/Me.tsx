@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import ReactLoading from "react-loading";
 
 import { MeQuery, MeQueryVariables, MeDocument } from "../generated/graphql";
-import { Loading } from "./Loading";
 import { ErrorComponent } from "./Error";
 import { isLoggedInVar } from "../cache";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -13,7 +13,7 @@ export function Me(): JSX.Element {
     MeDocument
   );
 
-  if (loading) return <Loading />;
+  if (loading) return <ReactLoading color="#E9A326" />;
   if (error) return <ErrorComponent error={error} />;
 
   const logout = () => {

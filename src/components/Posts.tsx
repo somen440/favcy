@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactLoading from "react-loading";
 
 import { useQuery } from "@apollo/client";
 import {
@@ -6,7 +7,6 @@ import {
   FetchPostsQuery,
   FetchPostsQueryVariables,
 } from "../generated/graphql";
-import { Loading } from "./Loading";
 import { ErrorComponent } from "./Error";
 import { IconButton, Typography } from "@material-ui/core";
 import ReplayIcon from "@material-ui/icons/Replay";
@@ -19,21 +19,21 @@ export function Posts(): JSX.Element {
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  if (loading) return <Loading />;
+  if (loading) return <ReactLoading color="#E9A326" />;
   if (error) return <ErrorComponent error={error} />;
 
-  if (!data?.posts) return <Loading />;
+  if (!data?.posts) return <ReactLoading color="#E9A326" />;
   if (data.posts.length === 0) return <div>empty</div>;
 
   return (
     <div>
       {isLoadingMore ? (
-        <Loading />
+        <ReactLoading color="#E9A326" />
       ) : (
         <div>
           <IconButton
             edge="start"
-            color="primary"
+            color="inherit"
             aria-label="open drawer"
             onClick={async () => {
               setIsLoadingMore(true);

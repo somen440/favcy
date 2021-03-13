@@ -7,10 +7,10 @@ import {
   FetchPostsDocument,
 } from "../generated/graphql";
 import { ErrorComponent } from "./Error";
-import { Loading } from "./Loading";
 import { shuffle } from "../utils/shuffle";
 import { Grid, IconButton, TextField } from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import ReactLoading from "react-loading";
 
 interface PostFormValues {
   title: string;
@@ -40,7 +40,7 @@ export function PostForm(): JSX.Element {
     link: "",
   });
 
-  if (loading) return <Loading />;
+  if (loading) return <ReactLoading color="#E9A326" />;
   if (error) return <ErrorComponent error={error} />;
 
   const setTitle = (

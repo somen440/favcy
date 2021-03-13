@@ -8,8 +8,10 @@ import {
   AppBar,
   Box,
   Container,
+  createMuiTheme,
   Grid,
   makeStyles,
+  ThemeProvider,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -52,6 +54,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#F9EACD",
+    },
+  },
+});
+
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
     isLoggedIn @client
@@ -62,61 +72,63 @@ export function HomePage(): JSX.Element {
   const classes = useStyles();
   const { data } = useQuery(IS_LOGGED_IN);
   return (
-    <div className={classes.root}>
-      <AppBar position="absolute" className={classes.appBar}>
-        <Toolbar>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            Favcy
-          </Typography>
-          {data.isLoggedIn ? <Me /> : <div />}
-        </Toolbar>
-      </AppBar>
-
-      <main className={classes.content}>
-        <Container maxWidth="lg" className={classes.container}>
-          <div className={classes.appBarSpacer} />
-          <Box pt={4}>
-            <Typography variant="body2" color="textSecondary" align="center">
-              {"あなただけの "}
-              <MuiLink color="inherit" href="https://voicy.jp/">
-                Voicy
-              </MuiLink>{" "}
-              {" と出会おう！"}
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <AppBar position="absolute" className={classes.appBar} color="primary">
+          <Toolbar>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}
+            >
+              Favcy
             </Typography>
-          </Box>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              {data.isLoggedIn ? (
-                <div />
-              ) : (
+            {data.isLoggedIn ? <Me /> : <div />}
+          </Toolbar>
+        </AppBar>
+
+        <main className={classes.content}>
+          <Container maxWidth="lg" className={classes.container}>
+            <div className={classes.appBarSpacer} />
+            <Box pt={4}>
+              <Typography variant="body2" color="textSecondary" align="center">
+                {"あなただけの "}
+                <MuiLink color="inherit" href="https://voicy.jp/">
+                  Voicy
+                </MuiLink>{" "}
+                {" と出会おう！"}
+              </Typography>
+            </Box>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                {data.isLoggedIn ? (
+                  <div />
+                ) : (
+                  <Paper className={classes.paper}>
+                    <LoginForm />
+                  </Paper>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                {data.isLoggedIn ? (
+                  <Paper className={classes.paper}>
+                    <PostForm />
+                  </Paper>
+                ) : (
+                  <div />
+                )}
+              </Grid>
+              <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <LoginForm />
+                  <Posts />
                 </Paper>
-              )}
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              {data.isLoggedIn ? (
-                <Paper className={classes.paper}>
-                  <PostForm />
-                </Paper>
-              ) : (
-                <div />
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Posts />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </main>
-    </div>
+          </Container>
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }
