@@ -49,7 +49,7 @@ export function Posts(): JSX.Element {
           </IconButton>
 
           {data.posts.map((p) => (
-            <Tooltip title={`${p.author.name}` + " さんおすすめ！"}>
+            <Tooltip title={`${p.author.name} さんおすすめ！`}>
               <Typography
                 variant="body1"
                 align="center"
