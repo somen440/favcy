@@ -1,9 +1,9 @@
-import { useApolloClient, useMutation } from "@apollo/client";
-import { Button, Grid, IconButton, InputBase, makeStyles, Paper, TextField } from "@material-ui/core";
+import { useMutation } from "@apollo/client";
+import { Grid, IconButton, makeStyles, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { isLoggedInVar } from "../cache";
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import DoneIcon from '@material-ui/icons/Done';
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import DoneIcon from "@material-ui/icons/Done";
 
 import {
   MutationLoginArgs,
@@ -15,7 +15,7 @@ import { Loading } from "./Loading";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -44,7 +44,9 @@ export function LoginForm(): JSX.Element {
   if (loading) return <Loading />;
   if (error) return <ErrorComponent error={error} />;
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const n = (event.target as HTMLInputElement).value;
     setName(n);
   };
@@ -72,7 +74,11 @@ export function LoginForm(): JSX.Element {
             />
           </Grid>
           <Grid item>
-            <IconButton type="submit" className={classes.iconButton} aria-label="login">
+            <IconButton
+              type="submit"
+              className={classes.iconButton}
+              aria-label="login"
+            >
               <DoneIcon />
             </IconButton>
           </Grid>

@@ -4,9 +4,17 @@ import React from "react";
 import { Posts } from "../components/Posts";
 import { LoginForm } from "../components/LoginForm";
 import { PostForm } from "../components/PostForm";
-import { AppBar, Box, Container, Grid, makeStyles, Toolbar, Typography } from "@material-ui/core";
-import MuiLink from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
+import {
+  AppBar,
+  Box,
+  Container,
+  Grid,
+  makeStyles,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import MuiLink from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
 import { Me } from "../components/Me";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -26,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
+    height: "100vh",
+    overflow: "auto",
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -35,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
   },
   fetchButton: {
     marginRight: 36,
@@ -57,7 +65,13 @@ export function HomePage(): JSX.Element {
     <div className={classes.root}>
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.title}
+          >
             Favcy
           </Typography>
           {data.isLoggedIn ? <Me /> : <div />}
@@ -69,16 +83,18 @@ export function HomePage(): JSX.Element {
           <div className={classes.appBarSpacer} />
           <Box pt={4}>
             <Typography variant="body2" color="textSecondary" align="center">
-              {'あなただけの '}
+              {"あなただけの "}
               <MuiLink color="inherit" href="https://voicy.jp/">
                 Voicy
-              </MuiLink>{' '}
-              {' と出会おう！'}
+              </MuiLink>{" "}
+              {" と出会おう！"}
             </Typography>
           </Box>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              {data.isLoggedIn ? <div /> : (
+              {data.isLoggedIn ? (
+                <div />
+              ) : (
                 <Paper className={classes.paper}>
                   <LoginForm />
                 </Paper>
@@ -89,7 +105,9 @@ export function HomePage(): JSX.Element {
                 <Paper className={classes.paper}>
                   <PostForm />
                 </Paper>
-              ) : <div />}
+              ) : (
+                <div />
+              )}
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
