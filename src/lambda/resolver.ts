@@ -9,6 +9,7 @@ import {
 import { DataSources } from "./graphql";
 import { toBase64 } from "../utils/encoding";
 import { AuthenticationError, ValidationError } from "apollo-server-errors";
+import { shuffle } from "../utils/shuffle";
 
 interface ResolversContext {
   user: User | undefined;
@@ -22,8 +23,10 @@ const query: QueryResolvers = {
     }
     return user;
   },
-  posts: (_, __, { dataSources }: ResolversContext) => {
-    return dataSources.postAPI.findAll();
+  posts: async (_, __, { dataSources }: ResolversContext) => {
+    const maxLen = 100
+    const posts = await dataSources.postAPI.findAll();
+    return shuffle(posts).slice(0, Math.min(posts.length, maxLen))
   },
 };
 
