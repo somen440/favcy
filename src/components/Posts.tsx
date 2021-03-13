@@ -8,7 +8,7 @@ import {
   FetchPostsQueryVariables,
 } from "../generated/graphql";
 import { ErrorComponent } from "./Error";
-import { IconButton, Typography } from "@material-ui/core";
+import { IconButton, Tooltip, Typography } from "@material-ui/core";
 import ReplayIcon from "@material-ui/icons/Replay";
 
 export function Posts(): JSX.Element {
@@ -49,22 +49,24 @@ export function Posts(): JSX.Element {
           </IconButton>
 
           {data.posts.map((p) => (
-            <Typography
-              variant="body1"
-              align="center"
-              color="textSecondary"
-              component="span"
-            >
-              <a
-                key={p.title}
-                href={p.link}
-                target="_blank"
-                rel="noopener noreferrer"
+            <Tooltip title={`${p.author.name}` + " さんおすすめ！"}>
+              <Typography
+                variant="body1"
+                align="center"
+                color="textSecondary"
+                component="span"
               >
-                {p.title}
-              </a>
-              {" / "}
-            </Typography>
+                <a
+                  key={p.title}
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {p.title}
+                </a>
+                {" / "}
+              </Typography>
+            </Tooltip>
           ))}
         </div>
       )}
