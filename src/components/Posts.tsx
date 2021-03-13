@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useQuery } from '@apollo/client';
-import { FetchPostsDocument, FetchPostsQuery, FetchPostsQueryVariables } from '../generated/graphql';
+import { useQuery } from "@apollo/client";
+import {
+  FetchPostsDocument,
+  FetchPostsQuery,
+  FetchPostsQueryVariables,
+} from "../generated/graphql";
 import { Loading } from "./Loading";
 import { ErrorComponent } from "./Error";
 
-export function Posts() {
+export function Posts(): JSX.Element {
   const { loading, error, data, fetchMore } = useQuery<
     FetchPostsQuery,
     FetchPostsQueryVariables
@@ -13,17 +17,17 @@ export function Posts() {
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  if (loading) return (<Loading />);
-  if (error)   return (<ErrorComponent error={error} />);
+  if (loading) return <Loading />;
+  if (error) return <ErrorComponent error={error} />;
 
-  if (!data?.posts)            return (<Loading />);
-  if (data.posts.length === 0) return (<div>empty</div>);
+  if (!data?.posts) return <Loading />;
+  if (data.posts.length === 0) return <div>empty</div>;
 
   return (
     <div>
-      {isLoadingMore
-        ? <Loading />
-        : (
+      {isLoadingMore ? (
+        <Loading />
+      ) : (
         <div>
           <button
             onClick={async () => {
@@ -38,16 +42,19 @@ export function Posts() {
           >
             fetch
           </button>
-          {data.posts.map(p => (
-              <a
-                key={p.title}
-                href={p.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              > / {p.title}</a>
+          {data.posts.map((p) => (
+            <a
+              key={p.title}
+              href={p.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              / {p.title}
+            </a>
           ))}
-        </div>)
-      }
+        </div>
+      )}
     </div>
-  )
+  );
 }

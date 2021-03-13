@@ -27,8 +27,8 @@
     "test": "react-scripts test",
     "test:unit": "jest",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint --fix src/**/*.ts",
+    "lint": "eslint src/**/{*.ts,*.tsx}",
+    "lint:fix": "eslint --fix src/**/{*.ts,*.tsx}",
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {

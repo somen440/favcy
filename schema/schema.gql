@@ -22,7 +22,7 @@ input AddPostInput {
 }
 
 type Query {
-  me: User
+  me: User!
   posts: [Post!]!
 }
 

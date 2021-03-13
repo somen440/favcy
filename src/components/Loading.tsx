@@ -1,7 +1,5 @@
-import React from 'react';
+import React from "react";
 
-export function Loading() {
-  return (
-    <div>loading...</div>
-  );
+export function Loading(): JSX.Element {
+  return <div>loading...</div>;
 }
