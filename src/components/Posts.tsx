@@ -8,6 +8,8 @@ import {
 } from "../generated/graphql";
 import { Loading } from "./Loading";
 import { ErrorComponent } from "./Error";
+import { IconButton, makeStyles, Typography } from "@material-ui/core";
+import ReplayIcon from '@material-ui/icons/Replay';
 
 export function Posts(): JSX.Element {
   const { loading, error, data, fetchMore } = useQuery<
@@ -29,7 +31,10 @@ export function Posts(): JSX.Element {
         <Loading />
       ) : (
         <div>
-          <button
+          <IconButton
+            edge="start"
+            color="primary"
+            aria-label="open drawer"
             onClick={async () => {
               setIsLoadingMore(true);
               await fetchMore({
@@ -40,18 +45,21 @@ export function Posts(): JSX.Element {
               setIsLoadingMore(false);
             }}
           >
-            fetch
-          </button>
+            <ReplayIcon />
+          </IconButton>
+
           {data.posts.map((p) => (
-            <a
-              key={p.title}
-              href={p.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {" "}
-              / {p.title}
-            </a>
+            <Typography variant="body1" align="center" color="textSecondary" component="span">
+              <a
+                key={p.title}
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {p.title}
+              </a>
+              {" / "}
+            </Typography>
           ))}
         </div>
       )}

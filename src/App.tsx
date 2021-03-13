@@ -1,3 +1,4 @@
+import 'fontsource-roboto';
 import * as React from 'react';
 
 import { ApolloProvider, ApolloClient } from '@apollo/client';

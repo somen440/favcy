@@ -5,6 +5,8 @@ import { MeQuery, MeQueryVariables, MeDocument } from "../generated/graphql";
 import { Loading } from "./Loading";
 import { ErrorComponent } from "./Error";
 import { isLoggedInVar } from "../cache";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { IconButton, Typography } from "@material-ui/core";
 
 export function Me(): JSX.Element {
   const { loading, error, data } = useQuery<MeQuery, MeQueryVariables>(
@@ -22,8 +24,15 @@ export function Me(): JSX.Element {
 
   return (
     <div>
-      {data?.me.name}
-      <button onClick={() => logout()}>ログアウト</button>
+      <Typography>
+        {data?.me.name}
+        <IconButton
+          color="inherit"
+          onClick={() => logout()}
+        >
+          <ExitToAppIcon />
+        </IconButton>
+      </Typography>
     </div>
   );
 }

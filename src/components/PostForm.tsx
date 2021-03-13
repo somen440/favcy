@@ -9,6 +9,8 @@ import {
 import { ErrorComponent } from "./Error";
 import { Loading } from "./Loading";
 import { shuffle } from "../utils/shuffle";
+import { Grid, IconButton, TextField } from "@material-ui/core";
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 interface PostFormValues {
   title: string;
@@ -41,11 +43,11 @@ export function PostForm(): JSX.Element {
   if (loading) return <Loading />;
   if (error) return <ErrorComponent error={error} />;
 
-  const setTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const setTitle = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const title = (event.target as HTMLInputElement).value;
     setFormVar({ ...formVar, title });
   };
-  const setLink = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const setLink = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const link = (event.target as HTMLInputElement).value;
     setFormVar({ ...formVar, link });
   };
@@ -62,9 +64,19 @@ export function PostForm(): JSX.Element {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input type="text" name="title" onChange={(e) => setTitle(e)} />
-        <input type="text" name="link" onChange={(e) => setLink(e)} />
-        <button>+</button>
+        <Grid container spacing={1} alignItems="flex-end">
+          <Grid item>
+            <TextField id="title" label="おすすめポイント" onChange={(e) => setTitle(e)} />
+          </Grid>
+          <Grid item>
+            <TextField id="link" label="放送リンク" onChange={(e) => setLink(e)} />
+          </Grid>
+          <Grid item>
+            <IconButton type="submit" aria-label="add">
+              <AddBoxIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
       </form>
     </div>
   );
