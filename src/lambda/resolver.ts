@@ -24,9 +24,9 @@ const query: QueryResolvers = {
     return user;
   },
   posts: async (_, __, { dataSources }: ResolversContext) => {
-    const maxLen = 100
+    const maxLen = 100;
     const posts = await dataSources.postAPI.findAll();
-    return shuffle(posts).slice(0, Math.min(posts.length, maxLen))
+    return shuffle(posts).slice(0, Math.min(posts.length, maxLen));
   },
 };
 
